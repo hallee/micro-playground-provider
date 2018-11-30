@@ -92,6 +92,10 @@ For example:
 ```js
 socket = new WebSocket('wss://' + location.host + '/playground') // ws:// for non-https sites
 
+socket.onopen = function () {
+  socket.send('print("Hello, world!")')
+}
+
 socket.onmessage = function (event) {
   var response = JSON.parse(event.data)
   if (response.hasOwnProperty('error') && response.hasOwnProperty('text')) {
@@ -103,9 +107,4 @@ socket.onmessage = function (event) {
     }
   }
 }
-
-socket.onopen = function () {
-  socket.send('print("Hello, world!")')
-}
-
 ```
