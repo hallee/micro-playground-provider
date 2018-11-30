@@ -1,7 +1,7 @@
 import Vapor
 import Service
 
-public final class PlaygroundProvider: Provider {
+public final class MicroPlaygroundProvider: Provider {
 
     let socketPath: String
     var logger: Logger?
