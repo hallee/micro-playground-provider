@@ -203,8 +203,8 @@ public class MicroPlayground {
     }
 
     public struct PlaygroundResult: Codable {
-        let text: String
-        let error: String
+        public let text: String
+        public let error: String
     }
 
 }
