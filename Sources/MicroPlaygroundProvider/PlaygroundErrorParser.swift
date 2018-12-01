@@ -1,5 +1,4 @@
 import Basic
-import Utility
 import Foundation
 
 struct PlaygroundError: Codable {
