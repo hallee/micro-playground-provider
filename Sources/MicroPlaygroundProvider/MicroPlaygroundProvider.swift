@@ -5,6 +5,7 @@ public class MicroPlaygroundProvider: Provider {
 
     let socketPath: String
     var logger: Logger?
+    public weak var delegate: MicroPlaygroundDelegate?
 
     public init(path: String = "playground") {
         socketPath = path
@@ -30,12 +31,14 @@ public class MicroPlaygroundProvider: Provider {
         socket.onText { socket, text in
             self.runCode(text, playground, on: socket)
         }
+        delegate?.microPlayground(playground, createdFor: socket)
     }
 
     private func runCode(_ code: String, _ playground: MicroPlayground,
                          on socket: WebSocket) {
         playground.run(code: code) { [weak socket] result in
             try? self.sendJSONFormatted(result, through: socket)
+            self.delegate?.microPlayground(playground, didRun: code)
         }
     }
 
