@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://vapor.codes">
-        <img src="Logo.svg" width="361" height="64" alt="MicroPlaygroundProvider Logo">
+        <img src="Logo.svg" width="483" height="64" alt="MicroPlaygroundProvider Logo">
     </a>
     <br>
     <br>
@@ -21,6 +21,10 @@ A simple [Vapor](https://vapor.codes) provider for creating server-side Swift Pl
 
 MicroPlaygroundProvider creates a websocket server that can accept Swift source code and return Swift build output text to a client.
 
+<p align="center">
+<a href="https://hal.codes"><img src="example-implementation.png" width="682" height="211" alt="Example implementation"></a>
+</p>
+
 ## Installation
 
 Add this dependency to your `Package.swift`:
@@ -37,6 +41,9 @@ And add `"MicroPlaygroundProvider"` as a dependency to your app's target.
 
 In `configure.swift`:
 
+```swift
+import MicroPlaygroundProvider
+```
 ```swift
 try services.register(MicroPlaygroundProvider())
 ```
