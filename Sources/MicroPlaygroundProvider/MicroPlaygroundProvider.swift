@@ -36,6 +36,7 @@ public class MicroPlaygroundProvider: Provider {
 
     private func runCode(_ code: String, _ playground: MicroPlayground,
                          on socket: WebSocket) {
+        delegate?.microPlayground(playground, willRun: code)
         playground.run(code: code) { [weak socket] result in
             try? self.sendJSONFormatted(result, through: socket)
             self.delegate?.microPlayground(playground, didRun: code)
