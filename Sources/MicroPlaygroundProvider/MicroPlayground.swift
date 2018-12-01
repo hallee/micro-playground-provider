@@ -39,7 +39,7 @@ public class MicroPlayground {
         projectPath = projectDirectoryPath
     }
 
-    func run(code: String, completion: @escaping (PlaygroundResult) -> Void) {
+    public func run(code: String, completion: @escaping (PlaygroundResult) -> Void) {
         buildAndRun(code: code) { result in
             var outputString = ""
             if let errors = result.errors {
@@ -202,7 +202,7 @@ public class MicroPlayground {
         let errors: [PlaygroundError]?
     }
 
-    struct PlaygroundResult: Codable {
+    public struct PlaygroundResult: Codable {
         let text: String
         let error: String
     }
