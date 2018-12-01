@@ -2,10 +2,10 @@ import Basic
 import Utility
 import Foundation
 
-class MicroPlayground {
+public class MicroPlayground {
 
-    static var moduleName = "MicroPlayground"
-    static let swiftVersionNumber = "4.2"
+    static public var moduleName = "MicroPlayground"
+    static public let swiftVersionNumber = "4.2"
     static let swiftVersion = swiftVersionNumber + "-RELEASE"
     private let projectPath: String
     lazy private var toolchainPath: String = {

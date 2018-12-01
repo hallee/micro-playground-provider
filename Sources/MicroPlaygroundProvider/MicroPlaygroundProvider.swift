@@ -1,12 +1,12 @@
 import Vapor
 import Service
 
-public final class MicroPlaygroundProvider: Provider {
+public class MicroPlaygroundProvider: Provider {
 
     let socketPath: String
     var logger: Logger?
 
-    init(path: String = "playground") {
+    public init(path: String = "playground") {
         socketPath = path
     }
 
