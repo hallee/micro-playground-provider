@@ -6,7 +6,7 @@ public protocol MicroPlaygroundDelegate: AnyObject {
 }
 
 // Make the delegate methods optional by providing an empty implementation
-extension MicroPlaygroundDelegate {
-    func microPlayground(_ playground: MicroPlayground, didRun code: String) { }
-    func microPlayground(_ playground: MicroPlayground, createdFor socket: WebSocket) { }
+public extension MicroPlaygroundDelegate {
+    public func microPlayground(_ playground: MicroPlayground, didRun code: String) { }
+    public func microPlayground(_ playground: MicroPlayground, createdFor socket: WebSocket) { }
 }
