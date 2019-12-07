@@ -1,11 +1,11 @@
 import Basic
-import Utility
+import SPMUtility
 import Foundation
 
 public class MicroPlayground {
 
     static public var moduleName = "MicroPlayground"
-    static public let swiftVersionNumber = "4.2"
+    static public let swiftVersionNumber = "5.1"
     static let swiftVersion = swiftVersionNumber + "-RELEASE"
     private let projectPath: String
     lazy private var toolchainPath: String = {
@@ -15,8 +15,9 @@ public class MicroPlayground {
         var path: AbsolutePath?
         #if os(macOS)
             let foundPath = try? Process.checkNonZeroExit(
-                args: "xcrun", "--sdk", "macosx", "--show-sdk-path")
-            guard let sdkRoot = foundPath?.chomp(), !sdkRoot.isEmpty else {
+                args: "xcrun", "--sdk", "macosx", "--show-sdk-path"
+            )
+            guard let sdkRoot = foundPath?.spm_chomp(), !sdkRoot.isEmpty else {
                 return nil
             }
             path = AbsolutePath(sdkRoot)
@@ -134,12 +135,12 @@ public class MicroPlayground {
         cmd += ["-O"]
 
         if let sdkPath = sdkPath {
-            cmd += ["-sdk", sdkPath.asString]
+            cmd += ["-sdk", sdkPath.pathString]
         }
-        cmd += ["-o", binaryFilePath.asString]
-        cmd += [mainFilePath.asString]
+        cmd += ["-o", binaryFilePath.pathString]
+        cmd += [mainFilePath.pathString]
 
-        let process = Basic.Process(arguments: cmd, redirectOutput: true, verbose: false)
+        let process = Basic.Process(arguments: cmd, outputRedirection: .collect, verbose: false)
         try processSet.add(process)
         try process.launch()
         let result = try process.waitUntilExit()
@@ -161,20 +162,20 @@ public class MicroPlayground {
             // Use sandbox-exec on macOS. This provides some safety against arbitrary code execution.
             cmd += ["sandbox-exec", "-p", sandboxProfile()]
         #endif
-        cmd += [binaryPath.asString]
+        cmd += [binaryPath.pathString]
 
-        let process = Basic.Process(arguments: cmd, environment: [:], redirectOutput: true, verbose: false)
+        let process = Basic.Process(arguments: cmd, environment: [:], outputRedirection: .collect, verbose: false)
         processCreated(process)
         try processSet.add(process)
         try process.launch()
         let result = try process.waitUntilExit()
 
         // Remove container directory. Cleanup after run.
-        try FileManager.default.removeItem(atPath: binaryPath.parentDirectory.asString)
+        try FileManager.default.removeItem(atPath: binaryPath.parentDirectory.pathString)
 
         switch result.exitStatus {
         case .terminated(let exitCode) where exitCode == 0:
-            return Result.success(try result.utf8Output().chuzzle() ?? "")
+            return Result.success(try result.utf8Output().spm_chuzzle() ?? "")
         case .signalled(let signal):
             return Result.failure(Error.failed("Terminated by signal \(signal)"))
         default:
@@ -183,7 +184,7 @@ public class MicroPlayground {
     }
 
     private func defaultError(_ result: ProcessResult) throws -> String {
-        return try (result.utf8Output() + result.utf8stderrOutput()).chuzzle() ?? "Terminated."
+        return try (result.utf8Output() + result.utf8stderrOutput()).spm_chuzzle() ?? "Terminated."
     }
 
     private func sandboxProfile() -> String {

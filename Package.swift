@@ -11,6 +11,6 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-package-manager.git", from: "0.1.0")
     ],
     targets: [
-        .target(name: "MicroPlaygroundProvider", dependencies: ["Vapor", "Utility"])
+        .target(name: "MicroPlaygroundProvider", dependencies: ["Vapor", "SPMUtility"])
     ]
 )

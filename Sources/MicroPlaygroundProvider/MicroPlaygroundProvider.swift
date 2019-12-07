@@ -14,7 +14,7 @@ public class MicroPlaygroundProvider: Provider {
     public func register(_ services: inout Services) throws {
         /// Register websocket server
         let wss = NIOWebSocketServer.default()
-        wss.get(socketPath) { socket, request in
+        wss.get(socketPath) { socket, _ in
             // TODO: security / limiting to host
             self.createPlayground(for: socket)
         }
