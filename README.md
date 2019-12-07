@@ -8,7 +8,7 @@
         <img src="http://img.shields.io/badge/vapor-3.0-brightgreen.svg" alt="Vapor 3">
     </a>
     <a href="https://swift.org">
-        <img src="http://img.shields.io/badge/swift-4.1-brightgreen.svg" alt="Swift 4.1">
+        <img src="http://img.shields.io/badge/swift-5.1-brightgreen.svg" alt="Swift 5.1">
     </a>
     <a href="LICENSE">
         <img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
@@ -56,7 +56,7 @@ MicroPlaygroundProvider expects a Swift toolchain in your Vapor project's path a
 You can download the latest toolchain using this script:
 
 ```bash
-SWIFT_VERSION=4.2
+SWIFT_VERSION=5.1
 BRANCH=release
 RELEASE=RELEASE
 if [[ `uname` == 'Darwin' ]]; then
